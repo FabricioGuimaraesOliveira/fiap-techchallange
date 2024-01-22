@@ -3,45 +3,68 @@ package com.fiap.greentracefood.application.domain;
 import java.time.OffsetDateTime;
 
 public class Cliente {
-    public String getNome() {
-        return nome;
-    }
+    private String cpf;
+    private String nome;
+    private String email;
+    private OffsetDateTime datacadastro;
 
-    public void setNome(String nome) {
+    public Cliente(String cpf, String nome, String email, OffsetDateTime datacadastro) {
+        this.cpf = cpf;
         this.nome = nome;
+        this.email = email;
+        this.datacadastro = datacadastro;
     }
 
-    public String getEmail() {
-        return email;
+    public Cliente() {
     }
 
-    public void setEmail(String email) {
+    public void atualizar(String nome,String email) {
+        if ( nome == null) {
+            throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
+        }
+        if (email == null) {
+            throw new IllegalArgumentException("Email não pode ser nulo ou vazio");
+        }
+        this.nome = nome;
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
+    public void validarCadastro() {
+        if (this.cpf == null || this.cpf.isEmpty()) {
+            throw new IllegalArgumentException("CPF não pode ser nulo ou vazio");
+        }
+        if (this.nome == null || this.nome.isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
+        }
+        if (this.email == null || this.email.isEmpty()) {
+            throw new IllegalArgumentException("Email não pode ser nulo ou vazio");
+        }
+
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public String getNome() {
+        return nome;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getCpf() {
+        return cpf;
     }
 
-    public OffsetDateTime getDataCadastro() {
-        return dataCadastro;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
-
-    public void setDataCadastro(OffsetDateTime dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
-
-    public long getId() {
-        return id;
+    public void setEmail(String email) {
+        this.email = email;
     }
-
-    private long id;
-    private String nome;
-    private String email;
-    private String senha;
-    private OffsetDateTime dataCadastro;
+    public void setDatacadastro(OffsetDateTime datacadastro) {
+        this.datacadastro = datacadastro;
+    }
+    public OffsetDateTime getDatacadastro() {
+        return datacadastro;
+    }
 }

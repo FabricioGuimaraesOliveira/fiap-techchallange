@@ -14,26 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Entity
-public class Pedido extends AbstractAggregateRoot<Pedido> {
+@Table(name = "Pedidos")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+@Data
+public class PedidoEntity extends AbstractAggregateRoot<PedidoEntity> {
 
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String codigo;
 
     private BigDecimal subtotal;
     private BigDecimal taxaFrete;
     private BigDecimal valorTotal;
 
-    @Embedded
-    private Endereco enderecoEntrega;
-
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private StatusPedido status = StatusPedido.CRIADO;
 
     @CreationTimestamp
@@ -42,21 +42,23 @@ public class Pedido extends AbstractAggregateRoot<Pedido> {
     private OffsetDateTime dataConfirmacao;
     private OffsetDateTime dataCancelamento;
     private OffsetDateTime dataEntrega;
+    private OffsetDateTime dataFinalizacao;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_cliente_id", nullable = false)
-    private Cliente cliente;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteEntity cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    private List<ItemPedido> itens = new ArrayList<>();
+    private List<ItemPedidoEntity> itens = new ArrayList<>();
 
-    @OneToOne(cascade= CascadeType.ALL, fetch= FetchType.LAZY)
-    @JoinColumn(name="id_pagamento", nullable = false)
-    private Pagamento pagamento;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "pagamento_id", nullable = false)
+    private PagamentoEntity pagamento;
 
     @PrePersist
     private void gerarCodigo() {
         setCodigo(UUID.randomUUID().toString());
     }
+
 
 }

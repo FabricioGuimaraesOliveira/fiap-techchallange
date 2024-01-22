@@ -2,7 +2,6 @@ package com.fiap.greentracefood.application.domain;
 
 
 
-import com.fiap.greentracefood.adapters.persistence.entity.Pagamento;
 import com.fiap.greentracefood.application.enums.StatusPagamento;
 import com.fiap.greentracefood.application.enums.StatusPedido;
 
@@ -13,18 +12,37 @@ import java.util.List;
 import java.util.UUID;
 
 public class Pedido  {
+
+    private Long id;
     private String codigo;
     private BigDecimal subtotal;
     private BigDecimal taxaFrete;
     private BigDecimal valorTotal;
-    private Endereco enderecoEntrega;
     private StatusPedido status = StatusPedido.CRIADO;
     private Pagamento pagamento;
     private OffsetDateTime dataCriacao;
     private OffsetDateTime dataConfirmacao;
     private OffsetDateTime dataCancelamento;
     private OffsetDateTime dataEntrega;
+
+    public OffsetDateTime getDataFinalizacao() {
+        return dataFinalizacao;
+    }
+
+    public void setDataFinalizacao(OffsetDateTime dataFinalizacao) {
+        this.dataFinalizacao = dataFinalizacao;
+    }
+
+    private OffsetDateTime dataFinalizacao;
     private Cliente cliente;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     public Pagamento getPagamento() {
         return pagamento;
@@ -63,14 +81,6 @@ public class Pedido  {
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
-    }
-
-    public Endereco getEnderecoEntrega() {
-        return enderecoEntrega;
-    }
-
-    public void setEnderecoEntrega(Endereco enderecoEntrega) {
-        this.enderecoEntrega = enderecoEntrega;
     }
 
     public StatusPedido getStatus() {
@@ -135,23 +145,19 @@ public class Pedido  {
         this.valorTotal = this.subtotal.add(this.taxaFrete);
     }
 
-    public void definirFrete() {
-       setTaxaFrete(null);
-    }
-
-    public void atribuirPedidoAosItens() {
-        getItens().forEach(item -> item.setPedido(this));
-    }
-
-    public void confirmar() {
-        setStatus(StatusPedido.CONFIRMADO);
+    public void preparar() {
+        setStatus(StatusPedido.PREPARANDO);
         setDataConfirmacao(OffsetDateTime.now());
 
     }
-
     public void entregar() {
         setStatus(StatusPedido.ENTREGUE);
         setDataEntrega(OffsetDateTime.now());
+    }
+
+    public void finalizar() {
+        setStatus(StatusPedido.FINALIZADO);
+        setDataFinalizacao(OffsetDateTime.now());
     }
 
     public void cancelar() {
@@ -159,11 +165,7 @@ public class Pedido  {
         setDataCancelamento(OffsetDateTime.now());
     }
 
-    private void setStatus(StatusPedido novoStatus) {
-        if(getStatus().naoPodeAlterarPara(novoStatus)) {
-//            throw new NegocioException(String.format("Status do pedido %s não pode ser alterado de %s para %s",
-//                    getCodigo(), getStatus(), novoStatus.getDescricao()));
-        }
+    public void setStatus(StatusPedido novoStatus) {
         this.status = novoStatus;
     }
 
@@ -171,8 +173,8 @@ public class Pedido  {
         setCodigo(UUID.randomUUID().toString());
     }
 
-    public boolean podeSerConfirmado() {
-        return getStatus().podeAlterarPara(status.CONFIRMADO)&isPago();
+    public boolean podeSerPreparado() {
+        return getStatus().podeAlterarPara(status.PREPARANDO)&isPago();
     }
     public boolean podeSerEntregue() {
         return getStatus().podeAlterarPara(status.ENTREGUE);
@@ -181,10 +183,16 @@ public class Pedido  {
         return getStatus().podeAlterarPara(status.CANCELADO);
     }
 
-    public boolean podeSerFinalisado() {
+    public boolean podeSerFinalizado() {
         return getStatus().podeAlterarPara(status.FINALIZADO)&isPago();
     }
     public boolean isPago() {
-        return this.pagamento.getPago() == StatusPagamento.SIM;
+        return this.pagamento.getStatus() == StatusPagamento.APROVADO;
+    }
+
+    public void inicializarPagamento() {
+        this.pagamento =Pagamento.builder()
+                .pago(StatusPagamento.AGUARDANDO_PAGAMENTO)
+                .build();
     }
 }

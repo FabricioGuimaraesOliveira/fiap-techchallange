@@ -3,30 +3,23 @@ package com.fiap.greentracefood.adapters.persistence.entity;
 
 import com.fiap.greentracefood.application.enums.StatusPagamento;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "Pagamento")
-@Table(name = "PAGAMENTOS")
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pagamento {
+public class PagamentoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idPagamento;
-
+    private long id;
     @Enumerated(EnumType.STRING)
-    private StatusPagamento pago;
-
-    @Size(max=400)
-    private String idGatewayPagamento;
-
-    @Size(max=400)
-    private String ticketUrl;
+    private StatusPagamento status;
+    @OneToOne(mappedBy = "pagamento", fetch = FetchType.LAZY)
+    private PedidoEntity pedido;
 
 }

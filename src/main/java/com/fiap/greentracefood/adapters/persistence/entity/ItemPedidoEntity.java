@@ -16,7 +16,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class ItemPedido {
+public class ItemPedidoEntity {
 
     @Id
     @EqualsAndHashCode.Include
@@ -30,10 +30,10 @@ public class ItemPedido {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Pedido pedido;
+    private PedidoEntity pedido;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Produto produto;
+    private ProdutoEntity produto;
 
 }

@@ -1,20 +1,23 @@
 package com.fiap.greentracefood.adapters.persistence.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.br.CPF;
+
 import java.time.OffsetDateTime;
 
-@Data
 @Entity
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Cliente {
+public class ClienteEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private Long id;
+    @Size(max=11, min=11)
+    @CPF
+    private String cpf;
 
     @Column(nullable = false)
     private String nome;
@@ -22,11 +25,8 @@ public class Cliente {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
-    private String senha;
-
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
-    private OffsetDateTime  dataCadastro;
+    private OffsetDateTime datacadastro;
 
 }

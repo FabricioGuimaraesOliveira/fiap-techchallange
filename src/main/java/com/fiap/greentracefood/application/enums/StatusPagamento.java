@@ -1,6 +1,7 @@
 package com.fiap.greentracefood.application.enums;
 
 public enum StatusPagamento {
-    NAO,
-    SIM
+    AGUARDANDO_PAGAMENTO,
+    REJEITADO,
+    APROVADO
 }

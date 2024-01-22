@@ -4,6 +4,24 @@ import com.fiap.greentracefood.application.enums.Categoria;
 
 import java.math.BigDecimal;
 public class Produto {
+
+    private long  id;
+    private String nome;
+    private String descricao;
+    private BigDecimal preco;
+    private Categoria categoria;
+
+    public Produto() {
+    }
+
+    public Produto(long id, String nome, String descricao, BigDecimal preco, Categoria categoria) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.categoria = categoria;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -44,11 +62,7 @@ public class Produto {
         this.id = id;
     }
 
-    private long  id;
-    private String nome;
-    private String descricao;
-    private BigDecimal preco;
-    private Categoria categoria;
+
 
 
 }
