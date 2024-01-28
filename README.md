@@ -16,7 +16,7 @@ Projeto Fase 1 da pós graduação da FIAP de Arquitetura de Software
 
 ## Endpoints
 
-Para visualizar os endpoints disponíveis na aplicação basta acessar o swagger em [http://localhost:8080/swagger](http://localhost:8080/swagger)
+Para visualizar os endpoints disponíveis na aplicação basta acessar o swagger em [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 
 ### Executando aplicação completa via docker
