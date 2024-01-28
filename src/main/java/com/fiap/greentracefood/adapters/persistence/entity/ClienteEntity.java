@@ -26,7 +26,7 @@ public class ClienteEntity {
     private String email;
 
     @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime datacadastro;
 
 }

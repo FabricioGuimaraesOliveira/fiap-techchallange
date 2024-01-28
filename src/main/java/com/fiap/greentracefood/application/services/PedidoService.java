@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,11 +35,6 @@ public class PedidoService implements PedidoUseCase {
 
 
     @Override
-    public List<Pedido> consultaByStatus(StatusPedido status) {
-        return null;
-    }
-
-    @Override
     public Optional<PedidoResumido> consultarPorCodigo(String codigoPedido) {
         return pedidoRepository.buscarResumoPedidoPorCodigo(codigoPedido);
     }
@@ -53,11 +49,6 @@ public class PedidoService implements PedidoUseCase {
         pedido.calcularValorTotal();
 
         return pedidoRepository.salvar(pedido);
-    }
-
-    @Override
-    public List<Pedido> listarPedidosPorCpfEDataCadastro(String cpf, OffsetDateTime dataCadastroInicio, OffsetDateTime dataCadastroFim) {
-        return pedidoRepository.buscarPedidosPorCpfEDataCadastro(cpf, dataCadastroInicio, dataCadastroFim);
     }
 
     @Override
@@ -80,44 +71,57 @@ public class PedidoService implements PedidoUseCase {
         return pedidoRepository.listarPedidosPorStatus(status, pageable);
     }
 
+    @Override
+    public Page<Pedido> listarTodosPedidosPaginados(Pageable pageable) {
+        return pedidoRepository.listarTodosPedidosPaginados(pageable);
+
+    }
+
+    @Override
+    public Optional<Pedido> detalharPorCodigo(String codigoPedido) {
+        return pedidoRepository.buscarPedidoPorCodigo(codigoPedido);
+    }
+
     private void validarTransicaoStatus(Pedido pedido, StatusPedido novoStatus) {
         switch (novoStatus) {
             case PREPARANDO:
                 if (pedido.podeSerPreparado()) {
                     pedido.preparar();
                 } else {
-                    throw new StatusPedidoException(novoStatus,pedido.isPago());
+                    throw new StatusPedidoException(novoStatus, pedido.isPago());
                 }
                 break;
             case ENTREGUE:
                 if (pedido.podeSerEntregue()) {
                     pedido.entregar();
                 } else {
-                    throw new StatusPedidoException(novoStatus,pedido.isPago());
+                    throw new StatusPedidoException(novoStatus, pedido.isPago());
                 }
                 break;
             case CANCELADO:
                 if (pedido.podeSerCancelado()) {
                     pedido.cancelar();
                 } else {
-                    throw new StatusPedidoException(novoStatus,pedido.isPago());
+                    throw new StatusPedidoException(novoStatus, pedido.isPago());
                 }
                 break;
             case FINALIZADO:
                 if (pedido.podeSerFinalizado()) {
                     pedido.finalizar();
                 } else {
-                    throw new StatusPedidoException(novoStatus,pedido.isPago());
+                    throw new StatusPedidoException(novoStatus, pedido.isPago());
                 }
                 break;
             default:
-                throw new StatusPedidoException(novoStatus,pedido.isPago());
+                throw new StatusPedidoException(novoStatus, pedido.isPago());
         }
     }
 
 
     private void validarPedido(Pedido pedido) {
-        pedido.setCliente(clienteService.buscar(pedido.getCliente().getCpf()));
+        if (Objects.nonNull(pedido.getCliente())) {
+            pedido.setCliente(clienteService.buscar(pedido.getCliente().getCpf()));
+        }
     }
 
     private void validarItens(Pedido pedido) {

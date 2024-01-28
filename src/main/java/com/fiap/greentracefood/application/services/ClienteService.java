@@ -5,6 +5,8 @@ import com.fiap.greentracefood.application.exceptions.ResourceNotFoundException;
 import com.fiap.greentracefood.application.port.incoming.ClienteUseCase;
 import com.fiap.greentracefood.application.port.outgoing.ClienteRepositoryPort;
 import com.fiap.greentracefood.application.validators.CpfValidator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public class ClienteService implements ClienteUseCase {
     final private ClienteRepositoryPort clienteRepositoryPort;
@@ -37,7 +39,8 @@ public class ClienteService implements ClienteUseCase {
     }
 
     @Override
-    public void excluir(String email) {
-
+    public Page<Cliente> listarPaginado(Pageable pageable) {
+        return clienteRepositoryPort.findAll(pageable);
     }
+
 }

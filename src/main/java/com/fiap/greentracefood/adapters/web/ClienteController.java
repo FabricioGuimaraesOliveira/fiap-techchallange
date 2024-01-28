@@ -14,6 +14,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.br.CPF;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,6 +80,23 @@ public class ClienteController {
         Cliente cliente = modelMapper.map(request, Cliente.class);
         return modelMapper.map(clienteUseCase.atualizar(cpf,cliente), ClienteResponseDTO.class);
 
+    }
+
+    @Operation(summary = "Listar todos os Clientes paginados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Sucesso ao listar os Clientes paginados",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Page.class)) }),
+            @ApiResponse(responseCode = "400", description = "Erro ao listar os Clientes paginados",
+                    content = @Content) })
+    @GetMapping("/listar")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<ClienteResponseDTO> listarClientesPaginados(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return clienteUseCase.listarPaginado(pageRequest)
+                .map(cliente -> modelMapper.map(cliente, ClienteResponseDTO.class));
     }
 
 }

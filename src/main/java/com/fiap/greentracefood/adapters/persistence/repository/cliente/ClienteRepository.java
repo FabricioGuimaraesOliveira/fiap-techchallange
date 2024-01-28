@@ -4,9 +4,12 @@ import com.fiap.greentracefood.adapters.persistence.entity.ClienteEntity;
 import com.fiap.greentracefood.application.domain.Cliente;
 import com.fiap.greentracefood.application.port.outgoing.ClienteRepositoryPort;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.OffsetDateTime;
 import java.util.Optional;
 
 @Component
@@ -29,5 +32,12 @@ private final ModelMapper modelMapper ;
         var clienteEntity = clienteRepository.findById(cpf);
         return clienteEntity.map(entity -> modelMapper.map(entity, Cliente.class));
 
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Cliente> findAll(Pageable pageable) {
+        Page<ClienteEntity> clienteEntitiesPage = clienteRepository.findAll(pageable);
+        return clienteEntitiesPage.map(entity -> modelMapper.map(entity, Cliente.class));
     }
 }

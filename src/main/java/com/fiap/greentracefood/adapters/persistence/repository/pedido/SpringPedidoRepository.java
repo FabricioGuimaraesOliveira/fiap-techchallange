@@ -27,7 +27,7 @@ public interface SpringPedidoRepository extends JpaRepository<PedidoEntity, Stri
 
     @Query("SELECT p.codigo AS codigo, p.valorTotal AS valorTotal, p.status AS status, p.pagamento.status AS statusPagamento, c.nome AS nomeCliente, " +
             "p.dataCriacao AS dataCriacao, p.dataConfirmacao AS dataConfirmacao, p.dataCancelamento AS dataCancelamento, p.dataEntrega AS dataEntrega " +
-            "FROM PedidoEntity p JOIN p.cliente c WHERE p.codigo = :codigo")
+            "FROM PedidoEntity p LEFT JOIN p.cliente c WHERE p.codigo = :codigo")
     Optional<PedidoProjection> findPedidoResumidoByCodigo(@Param("codigo") String codigo);
 
     Optional<PedidoEntity> findByCodigo(String codigo);

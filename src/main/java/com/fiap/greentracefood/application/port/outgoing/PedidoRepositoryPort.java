@@ -14,8 +14,8 @@ public interface PedidoRepositoryPort {
     Pedido salvar(Pedido pedido);
     Optional<PedidoResumido> buscarResumoPedidoPorCodigo(String codigoPedido);
     Optional<Pedido> buscarPedidoPorCodigo(String codigoPedido);
-    List<Pedido> buscarPedidosPorCpfEDataCadastro(String cpf, OffsetDateTime dataCadastroInicio, OffsetDateTime dataCadastroFim);
-   Page<Pedido> listarPedidosPaginadosPorCpf(String cpf, Pageable pageable);
+    Page<Pedido> listarPedidosPaginadosPorCpf(String cpf, Pageable pageable);
     Page<PedidoResumido> listarPedidosPorStatus(StatusPedido status, Pageable pageable);
+    Page<Pedido> listarTodosPedidosPaginados(Pageable pageable);
 
 }

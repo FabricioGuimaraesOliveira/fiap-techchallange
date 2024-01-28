@@ -1,5 +1,7 @@
 package com.fiap.greentracefood.adapters.web.response.item;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fiap.greentracefood.application.domain.Pedido;
 import com.fiap.greentracefood.application.domain.Produto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -10,6 +12,7 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode
 @ToString
+
 public class ItemPedidoResponseDTO {
     @Schema(description = "Preco Unitario",example = "19.0")
     private BigDecimal precoUnitario;
@@ -20,4 +23,6 @@ public class ItemPedidoResponseDTO {
     @Schema(description = "Observacao",example = "Sem Cebola")
     private String observacao;
     private Produto produto;
+    @JsonIgnore
+    private Pedido pedido;
 }

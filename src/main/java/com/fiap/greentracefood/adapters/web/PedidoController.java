@@ -23,10 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -75,7 +72,7 @@ public class PedidoController {
              pedidoUseCase.alterarStatusPedido(codigo, status);
     }
 
-    @Operation(summary = "Consultar pedido por código")
+    @Operation(summary = "Consultar resumo do pedido por código")
     @ApiResponse(responseCode = "200", description = "Pedido encontrado",
             content = { @Content(mediaType = "application/json",
                     schema = @Schema(implementation = PedidoResumidoResponseDTO.class)) })
@@ -88,45 +85,53 @@ public class PedidoController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
-    @Operation(summary = "Listar todos os pedidos paginados por CPF")
+    @Operation(summary = "Detalhar pedido por código")
+    @ApiResponse(responseCode = "200", description = "Pedido detalhado encontrado",
+            content = { @Content(mediaType = "application/json",
+                    schema = @Schema(implementation = PedidoResponseDTO.class)) })
+    @ApiResponse(responseCode = "404", description = "Pedido não encontrado")
+    @GetMapping("/{codigo}/detalhar")
+    public ResponseEntity<PedidoResponseDTO> detalharPorCodigo(@PathVariable String codigo) {
+        Optional<Pedido> pedidoDetalhadoOptional = pedidoUseCase.detalharPorCodigo(codigo);
+        return pedidoDetalhadoOptional
+                .map(pedidoDetalhado -> modelMapper.map(pedidoDetalhado, PedidoResponseDTO.class))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+    @Operation(summary = "Listar todos os pedidos paginados")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pedidos listados com sucesso",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Page.class)) }),
+                    content = { @Content(mediaType = "application/json") }),
             @ApiResponse(responseCode = "400", description = "Erro ao listar pedidos",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Erro ao listar pedidos",
                     content = @Content) })
-    @GetMapping("/{cpf}")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<PedidoResponseDTO> listarPedidosPaginadosPorCpf(@PathVariable String cpf,
-                                                                @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public Page<PedidoResponseDTO> listarPedidosPaginados(
+            @Parameter(description = "CPF do cliente (opcional)")
+            @RequestParam(required = false) String cpf,
+            @Parameter(description = "Número da página (padrão: 0)")
+            @RequestParam(defaultValue = "0") int page,
+            @Parameter(description = "Número de itens por página (padrão: 10)")
+            @RequestParam(defaultValue = "10") int size) {
+
+
         Pageable pageable = PageRequest.of(page, size);
-        Page<Pedido> pedidosPage = pedidoUseCase.listarPedidosPaginadosPorCpf(cpf, pageable);
-        return pedidosPage.map(p -> modelMapper.map(p, PedidoResponseDTO.class));
+        Page<Pedido> pedidosPage;
+
+        if (cpf != null) {
+            pedidosPage = pedidoUseCase.listarPedidosPaginadosPorCpf(cpf, pageable);
+        } else {
+            pedidosPage = pedidoUseCase.listarTodosPedidosPaginados(pageable);
+        }
+
+        Page<PedidoResponseDTO> pedidoResponseDTOPage = pedidosPage.map(
+                pedido -> modelMapper.map(pedido, PedidoResponseDTO.class)
+        );
+        return pedidoResponseDTOPage;
     }
 
-
-    @Operation(summary = "Listar pedidos por CPF e data de cadastro")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Pedidos listados com sucesso",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PedidoResponseDTO.class)) }),
-            @ApiResponse(responseCode = "400", description = "Erro ao listar pedidos",
-                    content = @Content),
-            @ApiResponse(responseCode = "404", description = "Erro ao listar pedidos",
-                    content = @Content) })
-    @GetMapping("/listar")
-    @ResponseStatus(HttpStatus.OK)
-    public List<PedidoResponseDTO> listarPedidosPorCpfEDataCadastro(@RequestParam String cpf,
-                                                                    @RequestParam OffsetDateTime dataCadastroInicio,
-                                                                    @RequestParam OffsetDateTime dataCadastroFim) {
-        List<Pedido> pedidos = pedidoUseCase.listarPedidosPorCpfEDataCadastro(cpf, dataCadastroInicio, dataCadastroFim);
-        return pedidos.stream()
-                .map(p -> modelMapper.map(p, PedidoResponseDTO.class))
-                .collect(Collectors.toList());
-    }
     @Operation(summary = "Listar todos os pedidos paginados por status")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pedidos listados com sucesso",

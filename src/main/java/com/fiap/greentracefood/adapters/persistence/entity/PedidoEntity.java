@@ -1,6 +1,8 @@
 package com.fiap.greentracefood.adapters.persistence.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fiap.greentracefood.application.enums.StatusPedido;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -44,14 +46,16 @@ public class PedidoEntity extends AbstractAggregateRoot<PedidoEntity> {
     private OffsetDateTime dataEntrega;
     private OffsetDateTime dataFinalizacao;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @ManyToOne()
+    @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private ClienteEntity cliente;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("pedido")
     private List<ItemPedidoEntity> itens = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "pagamento_id", nullable = false)
     private PagamentoEntity pagamento;
 

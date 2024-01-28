@@ -2,7 +2,7 @@
 FROM openjdk:21 AS build
 WORKDIR /app
 COPY . .
-RUN chmod 777 mvnw
+RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
 RUN ./mvnw clean package
 
 # Estágio de execução

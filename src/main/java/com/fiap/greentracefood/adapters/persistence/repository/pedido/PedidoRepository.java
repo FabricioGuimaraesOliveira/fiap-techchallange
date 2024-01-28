@@ -12,10 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class PedidoRepository implements PedidoRepositoryPort {
@@ -71,11 +68,8 @@ public class PedidoRepository implements PedidoRepositoryPort {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Pedido> buscarPedidosPorCpfEDataCadastro(String cpf, OffsetDateTime dataCadastroInicio, OffsetDateTime dataCadastroFim) {
-        List<PedidoEntity> pedidosEntities = pedidoRepository.findByCpfAndDataCadastro(cpf, dataCadastroInicio, dataCadastroFim);
-        return pedidosEntities.stream()
-                .map(entity -> modelMapper.map(entity, Pedido.class))
-                .collect(Collectors.toList());
+    public Page<Pedido> listarTodosPedidosPaginados(Pageable pageable) {
+        return pedidoRepository.findAll(pageable).map(entity -> modelMapper.map(entity, Pedido.class));
     }
+
 }
