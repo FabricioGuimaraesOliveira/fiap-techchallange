@@ -26,3 +26,7 @@ Execute o comando abaixo para iniciar os containers com a base de dados e execut
 ```bash
 docker-compose up -d
 ```
+
+
+## Postman
+Segue o link  da collection do postman: https://github.com/FabricioGuimaraesOliveira/fiap-techchallange/tree/develop/docs/postman
