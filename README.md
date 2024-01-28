@@ -20,18 +20,16 @@ Projeto Fase 1 da pós graduação da FIAP de Arquitetura de Software
 * [Docker](https://www.docker.com/)
 
 
-## Endpoints
-
-Para visualizar os endpoints disponíveis na aplicação basta acessar o swagger em [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
-
-
-### Executando aplicação completa via docker
+## Executando aplicação completa via docker
 
 Execute o comando abaixo para iniciar os containers com a base de dados e executar a aplicação localmente.
 
 ```bash
 docker-compose up -d
 ```
+
+## Endpoints
+Para visualizar os endpoints disponíveis na aplicação basta acessar o swagger em [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 
 ## Postman
