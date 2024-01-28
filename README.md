@@ -1,6 +1,12 @@
 # Tech Challenge FIAP - Green Trace Food Lanches
 Projeto Fase 1 da pós graduação da FIAP de Arquitetura de Software
 
+### Grupo 2 - Membros:
+* RM352611 - José Ronaldo Leles Júnior - email: juniorleles80@gmail.com
+* RM352829 - Saulo Carvalho Gomes - email: sgomesnet@gmail.com
+* RM352875 - Thiago de Melo Pereira - email: thiagomelop@yahoo.com.br
+* RM353122 - Fabrício Guimarães de Oliveira - email: fguimaraesoliveira@gmail.co
+
 
 ## Documentação
 * [Wiki - Notion](https://grupo2-techchallenge.notion.site/fda6d866c084429fb7257c1ffc9f12d6?v=703211fd8fc34d9d8b0e2b4da5c3415e)
