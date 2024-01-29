@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Pedidos")
+@Table(name = "pedidos")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Data
 public class PedidoEntity extends AbstractAggregateRoot<PedidoEntity> {

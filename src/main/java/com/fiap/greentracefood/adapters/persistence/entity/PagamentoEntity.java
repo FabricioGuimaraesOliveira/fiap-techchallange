@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "pagamentos")
 public class PagamentoEntity {
     @Id
     @SequenceGenerator(name = "pagamento_seq", sequenceName = "pagamento_sequence", allocationSize = 1, initialValue = 1)

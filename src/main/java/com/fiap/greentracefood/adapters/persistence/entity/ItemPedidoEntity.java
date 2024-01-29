@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
+@Table(name = "pedido_itens")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ItemPedidoEntity {
 
