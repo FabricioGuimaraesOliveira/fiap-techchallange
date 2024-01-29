@@ -33,7 +33,7 @@ CREATE TABLE pedidos(
     data_entrega timestamp with time zone,
     data_finalizacao timestamp with time zone,
     data_cancelamento timestamp with time zone,
-    cliente_id varchar(13) not null,
+    cliente_id varchar(13) null,
     pagamento_id int8 not null,
     constraint pedidos_pk primary key (id),
     constraint clientes_fk foreign key (cliente_id) references clientes(cpf),
