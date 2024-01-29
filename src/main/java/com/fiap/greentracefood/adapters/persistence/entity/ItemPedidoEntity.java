@@ -15,7 +15,8 @@ public class ItemPedidoEntity {
 
     @Id
     @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "pedido_item_seq", sequenceName = "pedido_item_sequence", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_item_seq")
     private Long id;
 
     private BigDecimal precoUnitario;

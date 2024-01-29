@@ -31,7 +31,7 @@ CREATE TABLE pedidos(
     data_criacao timestamp with time zone,
     data_confirmacao timestamp with time zone,
     data_entrega timestamp with time zone,
-    data_finalizado timestamp with time zone,
+    data_finalizacao timestamp with time zone,
     data_cancelamento timestamp with time zone,
     cliente_id varchar(13) not null,
     pagamento_id int8 not null,
@@ -55,6 +55,7 @@ CREATE TABLE pedido_itens(
 
 CREATE SEQUENCE PRODUTO_SEQUENCE;
 CREATE SEQUENCE PEDIDO_SEQUENCE;
+CREATE SEQUENCE PEDIDO_ITEM_SEQUENCE;
 CREATE SEQUENCE PAGAMENTO_SEQUENCE;
 
 INSERT INTO produtos (id, nome, descricao, preco, categoria)
