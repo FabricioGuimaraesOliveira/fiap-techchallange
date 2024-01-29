@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1db2ae01-c9ce-4baf-985e-359eceaed0a4",
+		"_postman_id": "58e7e4ff-8754-41db-ac61-5637a3dbeb97",
 		"name": "Sistema Green Trace Food Lanches",
 		"description": "Esta API disponibiliza endpoints para gerenciamento de pedidos\n\nContact Support:\n Name: Developer\n Email: greentracefod@gmail.com",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
@@ -1901,7 +1901,7 @@
 											"variable": [
 												{
 													"key": "status",
-													"value": "CRIADO",
+													"value": "FINALIZADO",
 													"description": "(Required) "
 												}
 											]
