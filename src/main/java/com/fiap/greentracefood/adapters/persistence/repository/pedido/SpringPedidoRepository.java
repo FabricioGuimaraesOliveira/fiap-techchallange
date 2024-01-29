@@ -34,7 +34,7 @@ public interface SpringPedidoRepository extends JpaRepository<PedidoEntity, Stri
 
     @Query("SELECT p.codigo AS codigo, p.valorTotal AS valorTotal, p.status AS status, p.pagamento.status AS statusPagamento, c.nome AS nomeCliente, " +
             "p.dataCriacao AS dataCriacao, p.dataConfirmacao AS dataConfirmacao, p.dataCancelamento AS dataCancelamento, p.dataEntrega AS dataEntrega " +
-            "FROM PedidoEntity p JOIN p.cliente c WHERE p.status = :status")
+            "FROM PedidoEntity p LEFT JOIN p.cliente c WHERE p.status = :status")
     Page<PedidoProjection> findPedidosByStatus(@Param("status") StatusPedido status, Pageable pageable);
 
 }
