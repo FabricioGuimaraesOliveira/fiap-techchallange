@@ -10,7 +10,7 @@ public class StatusPedidoException extends RuntimeException {
 
     private static String criarMensagem(StatusPedido statusPedido, boolean isPago) {
         if (!isPago && statusPedido.equals(StatusPedido.PREPARANDO)||
-                !isPago && statusPedido.equals(StatusPedido.ENTREGUE)||
+                !isPago && statusPedido.equals(StatusPedido.PRONTO)||
                 !isPago && statusPedido.equals(StatusPedido.FINALIZADO)) {
             return "Por favor, verifique o status do pagamento antes de atualizar o status do pedido";
         } else {

@@ -37,7 +37,7 @@ public class PedidoEntity extends AbstractAggregateRoot<PedidoEntity> {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusPedido status = StatusPedido.CRIADO;
+    private StatusPedido status = StatusPedido.RECEBIDO;
 
     @CreationTimestamp
     private OffsetDateTime dataCriacao;

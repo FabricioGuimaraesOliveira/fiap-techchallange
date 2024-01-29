@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum StatusPedido {
-    CRIADO("CRIADO"),
-    PREPARANDO("PREPARANDO", CRIADO),
-    ENTREGUE("ENTREGUE", PREPARANDO),
-    CANCELADO("CANCELADO", CRIADO, PREPARANDO),
-    FINALIZADO("FINALIZADO", PREPARANDO,ENTREGUE);
+    RECEBIDO("RECEBIDO"),
+    PREPARANDO("PREPARANDO", RECEBIDO),
+    PRONTO("PRONTO", PREPARANDO),
+    CANCELADO("CANCELADO", RECEBIDO, PREPARANDO),
+    FINALIZADO("FINALIZADO", PREPARANDO, PRONTO);
 
     private String descricao;
     private List<StatusPedido> statusAnteriores;

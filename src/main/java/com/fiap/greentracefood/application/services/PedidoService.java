@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -91,7 +90,7 @@ public class PedidoService implements PedidoUseCase {
                     throw new StatusPedidoException(novoStatus, pedido.isPago());
                 }
                 break;
-            case ENTREGUE:
+            case PRONTO:
                 if (pedido.podeSerEntregue()) {
                     pedido.entregar();
                 } else {

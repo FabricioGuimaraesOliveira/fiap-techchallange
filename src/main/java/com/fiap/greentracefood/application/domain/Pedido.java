@@ -18,7 +18,7 @@ public class Pedido  {
     private BigDecimal subtotal;
     private BigDecimal taxaFrete;
     private BigDecimal valorTotal;
-    private StatusPedido status = StatusPedido.CRIADO;
+    private StatusPedido status = StatusPedido.RECEBIDO;
     private Pagamento pagamento;
     private OffsetDateTime dataCriacao;
     private OffsetDateTime dataConfirmacao;
@@ -151,7 +151,7 @@ public class Pedido  {
 
     }
     public void entregar() {
-        setStatus(StatusPedido.ENTREGUE);
+        setStatus(StatusPedido.PRONTO);
         setDataEntrega(OffsetDateTime.now());
     }
 
@@ -177,7 +177,7 @@ public class Pedido  {
         return getStatus().podeAlterarPara(status.PREPARANDO)&isPago();
     }
     public boolean podeSerEntregue() {
-        return getStatus().podeAlterarPara(status.ENTREGUE);
+        return getStatus().podeAlterarPara(status.PRONTO);
     }
     public boolean podeSerCancelado() {
         return getStatus().podeAlterarPara(status.CANCELADO);
