@@ -24,7 +24,8 @@ public class PedidoEntity extends AbstractAggregateRoot<PedidoEntity> {
 
     @EqualsAndHashCode.Include
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "pedido_seq", sequenceName = "pedido_sequence", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_seq")
     private Long id;
 
     @Column(nullable = false, unique = true)
