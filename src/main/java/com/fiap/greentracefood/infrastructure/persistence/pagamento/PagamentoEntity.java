@@ -24,5 +24,6 @@ public class PagamentoEntity {
     private StatusPagamento status;
     @OneToOne(mappedBy = "pagamento", fetch = FetchType.LAZY)
     private PedidoEntity pedido;
+    private String qrCodeData;
 
 }

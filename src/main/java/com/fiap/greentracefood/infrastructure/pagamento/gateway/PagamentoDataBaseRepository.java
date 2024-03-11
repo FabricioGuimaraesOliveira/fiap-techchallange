@@ -27,11 +27,6 @@ public class PagamentoDataBaseRepository implements PagamentoGateway {
         return springPagamentoRepository.findByPedidoCodigo(codigoPedido).map(pagamentoEntity -> modelMapper.map(pagamentoEntity, Pagamento.class));
     }
 
-    @Override
-    public void registrarPagamento(String codigoPedido, StatusPagamento statusPagamento) {
-
-    }
-
 
     @Override
     @Transactional()

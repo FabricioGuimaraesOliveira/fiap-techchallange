@@ -6,6 +6,16 @@ import com.fiap.greentracefood.domain.entity.pedido.model.Pedido;
 
 public class Pagamento {
     private long id;
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
+    private String qrCode;
     private StatusPagamento status;
 
     public long getId() {
