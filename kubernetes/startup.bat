@@ -10,6 +10,10 @@ timeout /t 7
 kubectl apply -f configmap.yaml
 timeout /t 7
 
+echo 'Criando o HPA...'
+kubectl apply -f api-hpa.yaml
+timeout /t 5
+
 echo 'Subindo o banco de dados...'
 kubectl apply -f db-deployment.yaml
 timeout /t 15

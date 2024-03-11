@@ -12,6 +12,10 @@ sleep 7
 kubectl apply -f configmap.yaml
 sleep 7
 
+echo 'Criando o HPA...'
+kubectl apply -f api-hpa.yaml
+sleep 5
+
 echo 'Subindo o banco de dados...'
 kubectl apply -f db-deployment.yaml
 sleep 15
