@@ -18,6 +18,7 @@ CREATE TABLE clientes(
 CREATE TABLE pagamentos(
     id int8 not null,
     status varchar(20) not null,
+    qr_code varchar(500) null,
     constraint pagamentos_pk primary key (id)
 );
 

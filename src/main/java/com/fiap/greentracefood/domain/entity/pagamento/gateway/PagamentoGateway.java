@@ -7,6 +7,5 @@ import java.util.Optional;
 
 public interface PagamentoGateway {
    Optional<Pagamento> consultarPorPedido(String codigoPedido);
-    void registrarPagamento(String codigoPedido, StatusPagamento statusPagamento);
     void salvar(Pagamento pagamento);
 }
