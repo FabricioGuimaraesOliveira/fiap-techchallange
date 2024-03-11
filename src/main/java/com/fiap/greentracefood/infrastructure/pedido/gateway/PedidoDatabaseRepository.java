@@ -51,8 +51,7 @@ public class PedidoDatabaseRepository implements PedidoGateway {
 
     @Transactional(readOnly = true)
     public Page<Pedido> listarPedidosPaginadosPorCpf(String cpf, Pageable pageable) {
-        Page<PedidoEntity> pedidosPage = pedidoRepository.findByClienteCpf(cpf, pageable);
-        return pedidosPage.map(entity -> modelMapper.map(entity, Pedido.class));
+        return pedidoRepository.findPedidosOrderByStatusAndCpf(List.of(StatusPedido.RECEBIDO,StatusPedido.PREPARANDO,StatusPedido.PRONTO),cpf,pageable).map(entity -> modelMapper.map(entity, Pedido.class));
     }
 
     @Transactional(readOnly = true)
@@ -62,7 +61,7 @@ public class PedidoDatabaseRepository implements PedidoGateway {
     }
     @Transactional(readOnly = true)
     public Page<Pedido> listarTodosPedidosPaginados(Pageable pageable) {
-        return pedidoRepository.findPedidosOrderByStatus(List.of(StatusPedido.RECEBIDO,StatusPedido.PREPARANDO,StatusPedido.PRONTO),pageable).map(entity -> modelMapper.map(entity, Pedido.class));
+        return pedidoRepository.findPedidosOrderByStatusAndCpf(List.of(StatusPedido.RECEBIDO,StatusPedido.PREPARANDO,StatusPedido.PRONTO),null,pageable).map(entity -> modelMapper.map(entity, Pedido.class));
     }
     @Transactional(readOnly = true)
     @Override

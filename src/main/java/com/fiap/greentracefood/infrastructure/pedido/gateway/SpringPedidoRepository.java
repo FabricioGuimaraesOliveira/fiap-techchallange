@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +32,7 @@ public interface SpringPedidoRepository extends JpaRepository<PedidoEntity, Stri
 
     @Query("SELECT p FROM PedidoEntity p " +
             "WHERE p.status IN (:statusList) " +
+            "AND (:cpfFilter IS NULL OR p.cliente.cpf = :cpfFilter) " + // Adiciona a condição para filtrar por CPF
             "ORDER BY " +
             "CASE " +
             "    WHEN p.status = 'PRONTO' THEN 1 " +
@@ -41,9 +41,7 @@ public interface SpringPedidoRepository extends JpaRepository<PedidoEntity, Stri
             "    ELSE 4 " +
             "END, " +
             "p.dataCriacao ASC")
-    Page<PedidoEntity> findPedidosOrderByStatus(List<StatusPedido> statusList, Pageable pageable);
-
-
+    Page<PedidoEntity> findPedidosOrderByStatusAndCpf(List<StatusPedido> statusList, String cpfFilter, Pageable pageable);
 
 }
 
