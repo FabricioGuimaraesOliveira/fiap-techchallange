@@ -1,5 +1,5 @@
 # Tech Challenge FIAP - Green Trace Food Lanches
-Projeto Fase 1 da pós graduação da FIAP de Arquitetura de Software
+Projeto Fase 2 da pós graduação da FIAP de Arquitetura de Software
 
 ### Grupo 2 - Membros:
 * RM352611 - José Ronaldo Leles Júnior - email: juniorleles80@gmail.com
@@ -8,7 +8,7 @@ Projeto Fase 1 da pós graduação da FIAP de Arquitetura de Software
 * RM353122 - Fabrício Guimarães de Oliveira - email: fguimaraesoliveira@gmail.co
 
 
-## Documentação
+## Documentação - Fase 1 / Fase 2
 * [Wiki - Notion](https://grupo2-techchallenge.notion.site/fda6d866c084429fb7257c1ffc9f12d6?v=703211fd8fc34d9d8b0e2b4da5c3415e)
 
 ## Dependências
@@ -18,7 +18,8 @@ Projeto Fase 1 da pós graduação da FIAP de Arquitetura de Software
 * [PostgreSql](https://www.postgresql.org/download/)
 * [Maven](https://maven.apache.org/)
 * [Docker](https://www.docker.com/)
-
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+* [Postman](https://www.postman.com/)
 
 ## Executando aplicação completa via docker
 
@@ -29,8 +30,11 @@ docker-compose up -d
 ```
 
 ## Endpoints
-Para visualizar os endpoints disponíveis na aplicação basta acessar o swagger em [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+Para visualizar os endpoints disponíveis na aplicação basta acessar o swagger em [http://localhost:31000/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 
 ## Postman
-Segue o link  da collection do postman: https://github.com/FabricioGuimaraesOliveira/fiap-techchallange/tree/develop/docs/postman
+Segue o link  da collection do postman ( separada por fase): https://github.com/FabricioGuimaraesOliveira/fiap-techchallange/tree/feature/clean-architeture/docs/postman
+
+## Kubernetes
+Para visualizar os arquivos de configuração
