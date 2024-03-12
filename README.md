@@ -30,11 +30,30 @@ docker-compose up -d
 ```
 
 ## Endpoints
-Para visualizar os endpoints disponíveis na aplicação basta acessar o swagger em [http://localhost:31000/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+Para visualizar os endpoints disponíveis na aplicação na Fase 2 basta acessar o swagger em [http://localhost:31000/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
+Sequencia de endpoints para atender a entrega
+1. Checkout Pedido - /pedidos/checkout
+2. Consultar o status pagamento pedido - /pedidos/{codigo}/consultar
+3. Webhook para receber confirmação de pagamento aprovado ou recusado - /pagamentos/webhook/{codigoPedido}
+4. Lista de pedidos - /pedidos
+5. Atualizar o status do pedido - /pedidos/{codigo}/alterar-status
 
 ## Postman
 Segue o link  da collection do postman ( separada por fase): https://github.com/FabricioGuimaraesOliveira/fiap-techchallange/tree/feature/clean-architeture/docs/postman
 
 ## Kubernetes
-Para visualizar os arquivos de configuração
+Para visualizar os arquivos de configuração: https://github.com/FabricioGuimaraesOliveira/fiap-techchallange/tree/feature/clean-architeture/kubernetes
+
+##Para executar usando a arquitetura do Kubernetes:
+
+Video : https://youtu.be/ymaYeJpU9Rc
+
+1) Instalar o Docker Desktop;
+2) Habilitar em Configurações -> Kubernetes -> Habilitar Kubernetes
+3) Executar no projeto pela linha de comando \kubernetes\startup.bat
+4) Conferior pela linha de comando: kubectl get pods
+5) Abrir o navegador e verificar o swagger
+6) Consumir os endpoints em http://localhost:31000/
+
+
