@@ -5,6 +5,7 @@ package com.fiap.greentracefood.infrastructure.pedido.controller;
 import com.fiap.greentracefood.domain.entity.pedido.enums.StatusPedido;
 import com.fiap.greentracefood.domain.entity.pedido.model.Pedido;
 import com.fiap.greentracefood.domain.entity.pedido.model.PedidoResumido;
+import com.fiap.greentracefood.infrastructure.authorization.JwtDecoder;
 import com.fiap.greentracefood.infrastructure.pedido.dto.request.PedidoRequest;
 import com.fiap.greentracefood.infrastructure.pedido.dto.response.PedidoResponseDTO;
 import com.fiap.greentracefood.infrastructure.pedido.dto.response.PedidoResumidoResponseDTO;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -35,17 +37,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping("/pedidos")
 @Tag(name = "pedido", description = "API responsável pelo controle de pedidos.")
 public class PedidoController {
     private final ModelMapper modelMapper;
     private final PedidoUseCase pedidoUseCase;
+    private final JwtDecoder jwtDecoder;
 
 
-    public PedidoController(ModelMapper modelMapper, PedidoUseCase pedidoUseCase) {
+    public PedidoController(ModelMapper modelMapper, PedidoUseCase pedidoUseCase, JwtDecoder jwtDecoder) {
         this.modelMapper = modelMapper;
         this.pedidoUseCase = pedidoUseCase;
+        this.jwtDecoder = jwtDecoder;
     }
 
     @Operation(summary = "Realizar Checkout do Pedido")
@@ -59,9 +64,11 @@ public class PedidoController {
                     content = @Content) })
     @PostMapping("/checkout")
     @ResponseStatus(HttpStatus.CREATED)
-    public PedidoResponseDTO salvar(@Valid @RequestBody PedidoRequest request) {
+    public PedidoResponseDTO salvar(@Valid @RequestBody PedidoRequest request,
+                                     @RequestHeader("Authorization") String authorization) {
             Pedido pedido = modelMapper.map(request, Pedido.class);
-            pedido = pedidoUseCase.cadastrar(pedido);
+            var cpf=jwtDecoder.decodeAndExtractCPF(authorization);
+            pedido = pedidoUseCase.cadastrar(pedido,cpf);
             return modelMapper.map(pedido, PedidoResponseDTO.class);
     }
 

@@ -38,8 +38,8 @@ public class PedidoUseCase {
     }
 
 
-    public Pedido cadastrar(Pedido pedido) {
-        validarPedido(pedido);
+    public Pedido cadastrar(Pedido pedido,String cpf) {
+        validarPedido(pedido,cpf);
         validarItens(pedido);
         pedido.setTaxaFrete(new BigDecimal(1));
         pedido.inicializarPagamento();
@@ -111,9 +111,9 @@ public class PedidoUseCase {
     }
 
 
-    private void validarPedido(Pedido pedido) {
-        if (Objects.nonNull(pedido.getCliente())) {
-            pedido.setCliente(clienteGateway.buscarClientePorCPF(pedido.getCliente().getCpf()).orElse(null));
+    private void validarPedido(Pedido pedido,String cpf) {
+        if (Objects.nonNull(cpf)) {
+            pedido.setCliente(clienteGateway.buscarClientePorCPF(cpf).orElse(null));
         }
     }
 

@@ -1,12 +1,14 @@
 package com.fiap.greentracefood.infrastructure.configuration;
 
 
+import com.fiap.greentracefood.domain.entity.cliente.gateway.ClienteCpfGateway;
 import com.fiap.greentracefood.domain.entity.cliente.gateway.ClienteGateway;
 import com.fiap.greentracefood.domain.entity.pagamento.gateway.PagamentoGateway;
 import com.fiap.greentracefood.domain.entity.pedido.gateway.PedidoGateway;
 import com.fiap.greentracefood.domain.entity.produto.gateway.ProdutoGateway;
 import com.fiap.greentracefood.infrastructure.cliente.gateway.ClienteDataBaseRepository;
 import com.fiap.greentracefood.infrastructure.mercadopago.gateway.MercadoPagoGateway;
+import com.fiap.greentracefood.infrastructure.persistence.cliente.ClienteDynamoRepository;
 import com.fiap.greentracefood.infrastructure.persistence.cliente.SpringClienteRepository;
 import com.fiap.greentracefood.infrastructure.pagamento.gateway.PagamentoDataBaseRepository;
 import com.fiap.greentracefood.infrastructure.persistence.pagamento.SpringPagamentoRepository;
@@ -19,8 +21,10 @@ import com.fiap.greentracefood.usecases.pagamento.PagamentoUseCase;
 import com.fiap.greentracefood.usecases.pedido.PedidoUseCase;
 import com.fiap.greentracefood.usecases.produto.ProdutoUseCase;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 
 
 @Configuration
@@ -37,6 +41,10 @@ public class BeanConfiguration {
     public ClienteGateway createClienteGateway(SpringClienteRepository springClienteRepository,ModelMapper mapper) {
         return new ClienteDataBaseRepository(springClienteRepository,mapper);
     }
+    @Bean
+    public ClienteCpfGateway  createClienteCpfGateway(DynamoDbEnhancedClient enhancedClient, @Value("${dynamodb.tablename}") String tableName) {
+        return new ClienteDynamoRepository(enhancedClient,tableName);
+    }
 
     @Bean
     public PedidoGateway createPedidoGateway(SpringPedidoRepository springPedidoRepository, ModelMapper mapper) {
@@ -44,8 +52,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    ClienteUseCase createUserCase(ClienteGateway clienteGateway) {
-        return new ClienteUseCase(clienteGateway);
+    ClienteUseCase createUserCase(ClienteGateway clienteGateway, ClienteCpfGateway clienteCpfGateway) {
+        return new ClienteUseCase(clienteGateway,clienteCpfGateway);
     }
 
     @Bean
