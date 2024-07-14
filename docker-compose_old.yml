@@ -11,4 +11,13 @@ services:
       - POSTGRES_PASSWORD=fiap
       - POSTGRES_DB=bd_lanchonete
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./data:/data
+  spring-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: api 
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db

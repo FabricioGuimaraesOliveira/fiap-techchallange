@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 public class PedidoUseCase {
@@ -120,7 +121,7 @@ public class PedidoUseCase {
     private void validarItens(Pedido pedido) {
         List<Long> produtoIds = pedido.getItens().stream()
                 .map(item -> item.getProduto().getId())
-                .toList();
+                .collect(Collectors.toList());
 
         Map<Long, Produto> produtos = produtoGateway.consultarPorIds(produtoIds);
 
@@ -138,7 +139,7 @@ public class PedidoUseCase {
     private boolean saoTodosProdutosValidos(Map<Long, Produto> produtos, Pedido pedido) {
         List<Long> produtoIdsNoPedido = pedido.getItens().stream()
                 .map(item -> item.getProduto().getId())
-                .toList();
+                .collect(Collectors.toList());
 
         return produtos.keySet().containsAll(produtoIdsNoPedido);
     }
