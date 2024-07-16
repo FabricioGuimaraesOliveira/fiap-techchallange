@@ -29,7 +29,7 @@ final private ClienteCpfGateway clienteCpfGateway;
         cliente.setCpf(CpfValidator.sanitizar(cliente.getCpf()));
         cliente.validarCadastro();
         var clientEntity = clienteGateway.salvar(cliente);
-        clienteCpfGateway.save(clientEntity.getCpf());
+        //clienteCpfGateway.save(clientEntity.getCpf());
         return clientEntity;
     }
 

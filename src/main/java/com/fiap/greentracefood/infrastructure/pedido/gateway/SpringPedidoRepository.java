@@ -18,14 +18,18 @@ public interface SpringPedidoRepository extends JpaRepository<PedidoEntity, Stri
 
     Page<PedidoEntity> findByClienteCpf(String cpf, Pageable pageable);
 
-    @Query("SELECT p.codigo AS codigo, p.valorTotal AS valorTotal, p.status AS status, p.pagamento.status AS statusPagamento, c.nome AS nomeCliente, " +
+//    @Query("SELECT p.codigo AS codigo, p.valorTotal AS valorTotal, p.status AS status, p.pagamento.status AS statusPagamento, c.nome AS nomeCliente, " +
+//            "p.dataCriacao AS dataCriacao, p.dataConfirmacao AS dataConfirmacao, p.dataCancelamento AS dataCancelamento, p.dataEntrega AS dataEntrega " +
+//            "FROM PedidoEntity p LEFT JOIN p.cliente c WHERE p.codigo = :codigo")
+//    Optional<PedidoProjection> findPedidoResumidoByCodigo(@Param("codigo") String codigo);
+    @Query("SELECT p.codigo AS codigo, p.valorTotal AS valorTotal, p.status AS status, p.pagamento AS pagamento, c.nome AS nomeCliente, " +
             "p.dataCriacao AS dataCriacao, p.dataConfirmacao AS dataConfirmacao, p.dataCancelamento AS dataCancelamento, p.dataEntrega AS dataEntrega " +
             "FROM PedidoEntity p LEFT JOIN p.cliente c WHERE p.codigo = :codigo")
-    Optional<PedidoProjection> findPedidoResumidoByCodigo(@Param("codigo") String codigo);
+     Optional<PedidoProjection> findPedidoResumidoByCodigo(@Param("codigo") String codigo);
 
     Optional<PedidoEntity> findByCodigo(String codigo);
 
-    @Query("SELECT p.codigo AS codigo, p.valorTotal AS valorTotal, p.status AS status, p.pagamento.status AS statusPagamento, c.nome AS nomeCliente, " +
+    @Query("SELECT p.codigo AS codigo, p.valorTotal AS valorTotal, p.status AS status, p.status AS statusPagamento, c.nome AS nomeCliente, " +
             "p.dataCriacao AS dataCriacao, p.dataConfirmacao AS dataConfirmacao, p.dataCancelamento AS dataCancelamento, p.dataEntrega AS dataEntrega " +
             "FROM PedidoEntity p LEFT JOIN p.cliente c WHERE p.status = :status")
     Page<PedidoProjection> findPedidosByStatus(@Param("status") StatusPedido status, Pageable pageable);

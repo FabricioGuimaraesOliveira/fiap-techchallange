@@ -64,12 +64,18 @@ public class PedidoController {
                     content = @Content) })
     @PostMapping("/checkout")
     @ResponseStatus(HttpStatus.CREATED)
-    public PedidoResponseDTO salvar(@Valid @RequestBody PedidoRequest request,
-                                     @RequestHeader("Authorization") String authorization) {
-            Pedido pedido = modelMapper.map(request, Pedido.class);
-            var cpf=jwtDecoder.decodeAndExtractCPF(authorization);
-            pedido = pedidoUseCase.cadastrar(pedido,cpf);
-            return modelMapper.map(pedido, PedidoResponseDTO.class);
+//    public PedidoResponseDTO salvar(@Valid @RequestBody PedidoRequest request,
+//                                     @RequestHeader("Authorization") String authorization) {
+//            Pedido pedido = modelMapper.map(request, Pedido.class);
+//            var cpf=jwtDecoder.decodeAndExtractCPF(authorization);
+//            pedido = pedidoUseCase.cadastrar(pedido,cpf);
+//            return modelMapper.map(pedido, PedidoResponseDTO.class);
+//    }
+    public PedidoResponseDTO salvar(@Valid @RequestBody PedidoRequest request) {
+		Pedido pedido = modelMapper.map(request, Pedido.class);
+		var cpf = request.getCliente().getCpf();
+		pedido = pedidoUseCase.cadastrar(pedido,cpf);
+		return modelMapper.map(pedido, PedidoResponseDTO.class);
     }
 
     @Operation(summary = "Alterar o status do pedido")
