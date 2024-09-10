@@ -1,13 +1,20 @@
-# Estágio de build
-FROM openjdk:21 AS build
-WORKDIR /app
-COPY . .
-RUN sed -i 's/\r$//' mvnw && chmod +x mvnw
-RUN ./mvnw clean package
+# Etapa de construção
+FROM maven:3.9.4-amazoncorretto-21 AS build
 
-# Estágio de execução
-FROM openjdk:21
 WORKDIR /app
+
+# Copia os arquivos do projeto para o container
+COPY . .
+
+# Executa o build do projeto
+RUN mvn clean package
+
+# Etapa de execução
+FROM amazoncorretto:21
+
+WORKDIR /app
+
+# Copia o JAR do container de build
 COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8080
+
 ENTRYPOINT ["java", "-jar", "app.jar"]
