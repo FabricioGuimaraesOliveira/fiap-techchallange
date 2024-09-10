@@ -4,6 +4,7 @@ import com.fiap.greentracefood.domain.entity.pagamento.enums.StatusPagamento;
 import com.fiap.greentracefood.domain.entity.pagamento.model.Pagamento;
 import com.fiap.greentracefood.infrastructure.pagamento.dto.response.PagamentoResponseDTO;
 import com.fiap.greentracefood.usecases.pagamento.PagamentoUseCase;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/pagamentos")
 @Tag(name = "pagamento", description = "API responsável pelo gerenciamento de pagamentos.")
+@Hidden
 public class PagamentoController {
 
     private final ModelMapper modelMapper;
