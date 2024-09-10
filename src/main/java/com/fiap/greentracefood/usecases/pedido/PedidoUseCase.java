@@ -47,6 +47,7 @@ public class PedidoUseCase {
         pedido.setTaxaFrete(new BigDecimal(1));
         pedido.inicializarPagamento();
         pedido.calcularValorTotal();
+        paymentSender.sendProcessedPaymentMessage(pedido);
 
         return pedidoGateway.salvar(pedido);
     }
