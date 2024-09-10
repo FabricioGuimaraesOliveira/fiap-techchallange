@@ -11,6 +11,7 @@ import com.fiap.greentracefood.domain.entity.produto.gateway.ProdutoGateway;
 import com.fiap.greentracefood.domain.entity.produto.model.Produto;
 import com.fiap.greentracefood.infrastructure.exceptions.ProdutosInvalidosException;
 import com.fiap.greentracefood.infrastructure.exceptions.StatusPedidoException;
+import com.fiap.greentracefood.infrastructure.messaging.PaymentSender;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -25,11 +26,13 @@ public class PedidoUseCase {
     private final PedidoGateway pedidoGateway;
     private final ProdutoGateway produtoGateway;
     private final ClienteGateway clienteGateway;
+    private final PaymentSender paymentSender;
 
-    public PedidoUseCase(PedidoGateway pedidoGateway, ProdutoGateway produtoGateway, ClienteGateway clienteGateway) {
+    public PedidoUseCase(PedidoGateway pedidoGateway, ProdutoGateway produtoGateway, ClienteGateway clienteGateway, PaymentSender paymentSender) {
         this.pedidoGateway = pedidoGateway;
         this.produtoGateway = produtoGateway;
         this.clienteGateway = clienteGateway;
+        this.paymentSender = paymentSender;
     }
 
 

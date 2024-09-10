@@ -8,6 +8,7 @@ import com.fiap.greentracefood.domain.entity.pedido.gateway.PedidoGateway;
 import com.fiap.greentracefood.domain.entity.produto.gateway.ProdutoGateway;
 import com.fiap.greentracefood.infrastructure.cliente.gateway.ClienteDataBaseRepository;
 import com.fiap.greentracefood.infrastructure.mercadopago.gateway.MercadoPagoGateway;
+import com.fiap.greentracefood.infrastructure.messaging.PaymentSender;
 import com.fiap.greentracefood.infrastructure.persistence.cliente.ClienteDynamoRepository;
 import com.fiap.greentracefood.infrastructure.persistence.cliente.SpringClienteRepository;
 import com.fiap.greentracefood.infrastructure.pagamento.gateway.PagamentoDataBaseRepository;
@@ -62,8 +63,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    PedidoUseCase createPedidoUseCase(PedidoGateway pedidoGateway,ProdutoGateway produtoGateway,ClienteGateway clienteGateway) {
-        return new PedidoUseCase(pedidoGateway,produtoGateway,clienteGateway);
+    PedidoUseCase createPedidoUseCase(PedidoGateway pedidoGateway, ProdutoGateway produtoGateway, ClienteGateway clienteGateway, PaymentSender  paymentSender) {
+        return new PedidoUseCase(pedidoGateway,produtoGateway,clienteGateway,paymentSender);
     }
     @Bean
     ProdutoUseCase createProdutoUseCase(ProdutoGateway produtoGateway) {

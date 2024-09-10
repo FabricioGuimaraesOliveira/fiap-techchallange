@@ -10,6 +10,7 @@ import com.fiap.greentracefood.infrastructure.pedido.dto.request.PedidoRequest;
 import com.fiap.greentracefood.infrastructure.pedido.dto.response.PedidoResponseDTO;
 import com.fiap.greentracefood.infrastructure.pedido.dto.response.PedidoResumidoResponseDTO;
 import com.fiap.greentracefood.usecases.pedido.PedidoUseCase;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -65,13 +66,13 @@ public class PedidoController {
     @PostMapping("/checkout")
     @ResponseStatus(HttpStatus.CREATED)
     public PedidoResponseDTO salvar(@Valid @RequestBody PedidoRequest request,
-                                     @RequestHeader("Authorization") String authorization) {
-            Pedido pedido = modelMapper.map(request, Pedido.class);
-            var cpf=jwtDecoder.decodeAndExtractCPF(authorization);
-            pedido = pedidoUseCase.cadastrar(pedido,cpf);
-            return modelMapper.map(pedido, PedidoResponseDTO.class);
+                                    @RequestHeader(value = "Authorization", required = false) String authorization) {
+        Pedido pedido = modelMapper.map(request, Pedido.class);
+        var cpf = (authorization != null) ? jwtDecoder.decodeAndExtractCPF(authorization) : null;
+        pedido = pedidoUseCase.cadastrar(pedido, cpf);
+        return modelMapper.map(pedido, PedidoResponseDTO.class);
     }
-
+    @Hidden
     @Operation(summary = "Alterar o status do pedido")
     @ApiResponse(responseCode = "200", description = "Status do pedido alterado com sucesso",
             content = { @Content(mediaType = "application/json")})
