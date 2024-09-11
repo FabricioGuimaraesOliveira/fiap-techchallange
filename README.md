@@ -20,11 +20,11 @@ Projeto Fase 5 da pós graduação da FIAP de Arquitetura de Software
 * [Lambda de Autenticação](https://github.com/FabricioGuimaraesOliveira/fiap-authentication-lambda)
 
 # Repositórios relacionados
-* [Serviço de produto](https://github.com/FabricioGuimaraesOliveira/fiap-producao)
-* [Serviço de pedidos](https://github.com/FabricioGuimaraesOliveira/fiap-techchallange)
-* [Serviço de pagamento](https://github.com/FabricioGuimaraesOliveira/fiap-pagamento)
 * [Infraestrutura Terraform](https://github.com/FabricioGuimaraesOliveira/fiap-terraform)
 * [Lambda de Autenticação](https://github.com/FabricioGuimaraesOliveira/fiap-authentication-lambda)
+* [Serviço de pedidos](https://github.com/FabricioGuimaraesOliveira/fiap-techchallange)
+* [Serviço de pagamento](https://github.com/FabricioGuimaraesOliveira/fiap-pagamento)
+* [Serviço de produção](https://github.com/FabricioGuimaraesOliveira/fiap-producao)
 
 ## Dependências
 * [IntelliJ IDEA (Opcional)](https://www.jetbrains.com/idea/download/#section=windows)
