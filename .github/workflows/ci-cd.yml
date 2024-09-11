@@ -24,13 +24,13 @@ jobs:
         run: mvn clean install
 
       - name: Upload JAR file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: app-jar
           path: target/*.jar
 
       - name: Download JAR file
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: app-jar
           path: target
