@@ -10,7 +10,7 @@ Projeto Fase 5 da pós graduação da FIAP de Arquitetura de Software
 ## Documentação
 * [Wiki - Notion](https://grupo2-techchallenge.notion.site/fda6d866c084429fb7257c1ffc9f12d6?v=703211fd8fc34d9d8b0e2b4da5c3415e)
 * [Relatório de Impacto à Proteção de Dados Pessoais - RIPD](https://github.com/FabricioGuimaraesOliveira/fiap-techchallange/blob/main/RIPD.pdf)
-* [OWASP - Zap Scanning Report](https://github.com/FabricioGuimaraesOliveira/fiap-techchallange/blob/main/2024-09-10-ZAP-Report.html)
+* [OWASP - Zap Scanning Report](https://github.com/FabricioGuimaraesOliveira/fiap-techchallange/blob/main/2024-09-10-ZAP-Report.pdf)
 
 # Repositórios relacionados
 * [Serviço de produto](https://github.com/FabricioGuimaraesOliveira/fiap-producao)
