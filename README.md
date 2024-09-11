@@ -13,13 +13,6 @@ Projeto Fase 5 da pós graduação da FIAP de Arquitetura de Software
 * [OWASP - Zap Scanning Report](https://github.com/FabricioGuimaraesOliveira/fiap-techchallange/blob/main/ZAP-Scanning-Report.pdf)
 
 # Repositórios relacionados
-* [Serviço de produto](https://github.com/FabricioGuimaraesOliveira/fiap-producao)
-* [Serviço de pedidos](https://github.com/FabricioGuimaraesOliveira/fiap-techchallange)
-* [Serviço de pagamento](https://github.com/FabricioGuimaraesOliveira/fiap-pagamento)
-* [Infraestrutura Terraform](https://github.com/FabricioGuimaraesOliveira/fiap-terraform)
-* [Lambda de Autenticação](https://github.com/FabricioGuimaraesOliveira/fiap-authentication-lambda)
-
-# Repositórios relacionados
 * [Infraestrutura Terraform](https://github.com/FabricioGuimaraesOliveira/fiap-terraform)
 * [Lambda de Autenticação](https://github.com/FabricioGuimaraesOliveira/fiap-authentication-lambda)
 * [Serviço de pedidos](https://github.com/FabricioGuimaraesOliveira/fiap-techchallange)
