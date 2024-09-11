@@ -60,3 +60,6 @@ No fluxo de transações entre Pedido, Pagamento e Produção, a comunicação o
 * Pagamento processa o pagamento do pedido criado e envia um evento de confirmação.
 * Produção recebe o evento e atualiza o status da produção(Preparando, Pronto, Entregue) do pedido pela cozinha.
 * Producao envia um evento notificando cada status do pedido ao cliente
+
+## Fluxo de Eventos 
+![img.png](fluxo_evento.png)
