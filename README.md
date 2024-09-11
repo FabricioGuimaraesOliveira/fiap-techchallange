@@ -18,6 +18,13 @@ Projeto Fase 5 da pós graduação da FIAP de Arquitetura de Software
 * [Infraestrutura Terraform](https://github.com/FabricioGuimaraesOliveira/fiap-terraform)
 * [Lambda de Autenticação](https://github.com/FabricioGuimaraesOliveira/fiap-authentication-lambda)
 
+# Repositórios relacionados
+* [Serviço de produto](https://github.com/FabricioGuimaraesOliveira/fiap-producao)
+* [Serviço de pedidos](https://github.com/FabricioGuimaraesOliveira/fiap-techchallange)
+* [Serviço de pagamento](https://github.com/FabricioGuimaraesOliveira/fiap-pagamento)
+* [Infraestrutura Terraform](https://github.com/FabricioGuimaraesOliveira/fiap-terraform)
+* [Lambda de Autenticação](https://github.com/FabricioGuimaraesOliveira/fiap-authentication-lambda)
+
 ## Dependências
 * [IntelliJ IDEA (Opcional)](https://www.jetbrains.com/idea/download/#section=windows)
 * [Java JDK 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
@@ -61,5 +68,5 @@ No fluxo de transações entre Pedido, Pagamento e Produção, a comunicação o
 * Produção recebe o evento e atualiza o status da produção(Preparando, Pronto, Entregue) do pedido pela cozinha.
 * Producao envia um evento notificando cada status do pedido ao cliente
 
-## Fluxo de Eventos 
+## Fluxo de Eventos
 ![img.png](fluxo_evento.png)

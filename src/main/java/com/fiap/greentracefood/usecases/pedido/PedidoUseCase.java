@@ -47,9 +47,10 @@ public class PedidoUseCase {
         pedido.setTaxaFrete(new BigDecimal(1));
         pedido.inicializarPagamento();
         pedido.calcularValorTotal();
-        paymentSender.sendProcessedPaymentMessage(pedido);
+        Pedido saveOrder= pedidoGateway.salvar(pedido);
+        paymentSender.sendProcessedPaymentMessage(saveOrder);
 
-        return pedidoGateway.salvar(pedido);
+        return saveOrder;
     }
 
     public Page<Pedido> listarPedidosPaginadosPorCpf(String cpf, Pageable pageable) {
