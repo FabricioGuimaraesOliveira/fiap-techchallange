@@ -6,6 +6,7 @@ import com.fiap.greentracefood.domain.entity.cliente.gateway.ClienteGateway;
 import com.fiap.greentracefood.domain.entity.pagamento.gateway.PagamentoGateway;
 import com.fiap.greentracefood.domain.entity.pedido.gateway.PedidoGateway;
 import com.fiap.greentracefood.domain.entity.produto.gateway.ProdutoGateway;
+import com.fiap.greentracefood.domain.entity.solicitacao.gateway.SolicitacaoExclusaoGateway;
 import com.fiap.greentracefood.infrastructure.cliente.gateway.ClienteDataBaseRepository;
 import com.fiap.greentracefood.infrastructure.mercadopago.gateway.MercadoPagoGateway;
 import com.fiap.greentracefood.infrastructure.messaging.PaymentSender;
@@ -15,12 +16,15 @@ import com.fiap.greentracefood.infrastructure.pagamento.gateway.PagamentoDataBas
 import com.fiap.greentracefood.infrastructure.persistence.pagamento.SpringPagamentoRepository;
 import com.fiap.greentracefood.infrastructure.pedido.gateway.PedidoDatabaseRepository;
 import com.fiap.greentracefood.infrastructure.pedido.gateway.SpringPedidoRepository;
+import com.fiap.greentracefood.infrastructure.persistence.solicitacao.SpringSolicitacaoExclusaoRepository;
 import com.fiap.greentracefood.infrastructure.produto.gateway.ProdutoDataBaseRepository;
 import com.fiap.greentracefood.infrastructure.persistence.produto.SpringProdutoRepository;
+import com.fiap.greentracefood.infrastructure.solicitacao.gateway.SolicitacaoExclusaoDataBaseRepository;
 import com.fiap.greentracefood.usecases.cliente.ClienteUseCase;
 import com.fiap.greentracefood.usecases.pagamento.PagamentoUseCase;
 import com.fiap.greentracefood.usecases.pedido.PedidoUseCase;
 import com.fiap.greentracefood.usecases.produto.ProdutoUseCase;
+import com.fiap.greentracefood.usecases.solicitacao.SolicitacaoExclusaoUseCase;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -78,7 +82,18 @@ public class BeanConfiguration {
     }
 
     @Bean
+    SolicitacaoExclusaoGateway createSolicitacaoExclusaoGateway(SpringSolicitacaoExclusaoRepository solicitacaoExclusaoRepository, ModelMapper mapper) {
+        return new SolicitacaoExclusaoDataBaseRepository(solicitacaoExclusaoRepository,mapper);
+    }
+
+
+    @Bean
     PagamentoUseCase createPagamentoUseCase(PagamentoGateway pagamentoGateway,PedidoGateway pedidoGateway,MercadoPagoGateway mercadoPagoGateway) {
         return new PagamentoUseCase(pagamentoGateway,pedidoGateway,mercadoPagoGateway);
+    }
+
+    @Bean
+    SolicitacaoExclusaoUseCase createSolicitacaoExclusaoUseCase (SolicitacaoExclusaoGateway solicitacaoExclusaoGateway) {
+        return new SolicitacaoExclusaoUseCase (solicitacaoExclusaoGateway);
     }
 }
